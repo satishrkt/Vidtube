@@ -13,4 +13,5 @@ app.use(express.json({limit: "16kb"})); // for recieve JSON data from the server
 app.use(express.urlencoded({extended: true, limit: "16kb"})) // fetch data from url
 app.use(express.static("public")); // for avialble static data in publically
 app.use(cookieParser());
+
 export { app }

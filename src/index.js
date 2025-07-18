@@ -19,4 +19,4 @@ connectDB().then(() =>{
     });
 }).catch((error) =>{
     console.log("Database connection failed!!", error);
-})
+});
