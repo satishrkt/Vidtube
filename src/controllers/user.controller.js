@@ -9,7 +9,7 @@ const registerUser = asyncHandler(async (req, res) => {
     if([username, email, fullName, password].some((field) => field?.trim() === "")){
         throw new ApiError(400, "This fields are required") // Check Value is null here
     } 
-    const userExists = User.findOne({
+    const userExists = await User.findOne({
         $or: [{email, username}] // Check the validation already exists in database
     })
     if(userExists) {
@@ -38,11 +38,10 @@ const registerUser = asyncHandler(async (req, res) => {
         coverImage: coverImage?.url || ""
     });
 
-    const result = User.findById(user._id).select("-password -refreshToken");
+    const result = await User.findById(user._id).select("-password -refreshToken");
     if(!result) {
         throw new ApiError(500, "Something went wrong while registing a user");
     }
-
     return res.status(201).json(new ApiResponse(200, result, "Success"))
 });
 
