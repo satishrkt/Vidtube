@@ -14,4 +14,9 @@ app.use(express.urlencoded({extended: true, limit: "16kb"})) // fetch data from 
 app.use(express.static("public")); // for avialble static data in publically
 app.use(cookieParser());
 
+import userRouter from "./routes/user.routes.js";  //routes import
+
+app.use("/api/v1/users", userRouter); //router declare
+app.use("/api/vi/users", userRouter);
+
 export { app }

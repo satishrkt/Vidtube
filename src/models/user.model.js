@@ -8,12 +8,12 @@ const userSchema = new mongoose.Schema(
         email: { type: String, require: [true, "Email is required"], unique: true, lowerCase: true, trim: true },
         fullName: { type: String, require: true },
         password: { type: String, require: true },
-        coverImage: { type: String, require: true },
-        avtar: { type: String, require: true },
+        coverImage: { type: String },
+        avatar: { type: String, require: true },
         watchHistory: [
-            { type: Schema.Types.ObjectId, ref: "Video" }
+            { type: mongoose.Schema.Types.ObjectId, ref: "Video" }
         ],
-        refreshToken: { type: String},
+        refreshToken: { type: String },
     },
     {
         timestamps: true
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre("save", async function (next) { // Bcrypt the password
     if(!this.isModified("password")) return next();
-    this.password = bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10);
     next();
 });
 

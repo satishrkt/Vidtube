@@ -1,13 +1,12 @@
-import mongoose from "mongoose";
-import express from "express";
 import dotenv from "dotenv"; // import dotenv file in this format and add this line -r dotenv/config --experimental-json-modules package.josn file too;
 import connectDB from "./db/dbConnection.js";
+import { app } from "./app.js";
 
 dotenv.config({
     path: './env'
-})
-const app = express();
-const PORT = process.env.PORT || 8000;
+});
+
+const PORT = process.env.PORT || 3000;
 connectDB().then(() =>{
     app.listen(PORT, () =>{
         console.log(`Server is running on port: ${PORT}`);
