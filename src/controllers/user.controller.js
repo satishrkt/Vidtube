@@ -36,7 +36,14 @@ const registerUser = asyncHandler(async (req, res) => {
         password,
         avatar: avatar.url,
         coverImage: coverImage?.url || ""
-    })
+    });
+
+    const result = User.findById(user._id).select("-password -refreshToken");
+    if(!result) {
+        throw new ApiError(500, "Something went wrong while registing a user");
+    }
+
+    return res.status(201).json(new ApiResponse(200, result, "Success"))
 });
 
 const getUserDetails = asyncHandler( async (req, res) => {
